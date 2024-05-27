@@ -21,8 +21,9 @@ const productSchema = new mongoose.Schema(
       dafault: Date.now,
     },
     image: {
-      type:String
-    }
+      public_id: String,
+      secure_url: String,
+    },
   },
   {
     timestamps: true,
