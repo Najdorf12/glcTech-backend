@@ -8,24 +8,24 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const { name, description, category, price,image } = req.body;
+  const { name, description, category, price, image } = req.body;
   try {
     const newProduct = new Product({
       name,
       description,
       price,
       category,
-      image
+      image,
     });
 
-    if (req?.files?.image) {
+ /*    if (req?.files?.image) {
       const result = await uploadImage(req.files?.image.tempFilePath);
       newProduct.image = {
         public_id: result?.public_id,
         secure_url: result?.secure_url,
       };
       await fs.unlink(req.files?.image.tempFilePath);
-    }
+    } */
 
     const savedProduct = await newProduct.save();
     res.json(savedProduct);
@@ -44,6 +44,7 @@ export const deleteProduct = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 export const updateProduct = async (req, res) => {
   const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
