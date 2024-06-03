@@ -18,7 +18,7 @@ export const createProduct = async (req, res) => {
       image,
     });
 
- /*    if (req?.files?.image) {
+    /*    if (req?.files?.image) {
       const result = await uploadImage(req.files?.image.tempFilePath);
       newProduct.image = {
         public_id: result?.public_id,
@@ -62,4 +62,14 @@ export const getProductByCategory = async (req, res) => {
   if (!productsFilter)
     return res.status(404).json({ message: "Product not found" });
   res.json(productsFilter);
+};
+
+export const getProduct = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  try {
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
 };
