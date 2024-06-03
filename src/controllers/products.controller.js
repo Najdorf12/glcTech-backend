@@ -55,16 +55,13 @@ export const updateProduct = async (req, res) => {
 
 export const getProductByCategory = async (req, res) => {
   const category = req.params.categoryName;
-  try {
-    const products = await Product.find();
-    const productsFilter = products.filter(
-      (product) => product.category === category
-    );
-    if (!productsFilter) return res.status(404).json({ message: "Product not found" });
-    res.json(productsFilter);
-  } catch (error) {
-    console.error(error);
-  }
+  const products = await Product.find();
+  const productsFilter = products.filter(
+    (product) => product.category === category
+  );
+  if (!productsFilter)
+    return res.status(404).json({ message: "Product not found" });
+  res.json(productsFilter);
 };
 
 export const getProduct = async (req, res) => {
