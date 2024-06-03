@@ -6,17 +6,22 @@ import fileUpload from "express-fileupload";
 import productsRoutes from "./routes/products.routes.js";
 
 const app = express();
-app.use(cors())
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://glctech.vercel.app"],
+  })
+);
 
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(fileUpload({
-    useTempFiles : true,
-    tempFileDir : './uploads'
-}));
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./uploads",
+  })
+);
 
 app.use("/api/products", productsRoutes);
-
 
 export default app;
