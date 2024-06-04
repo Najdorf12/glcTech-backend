@@ -65,6 +65,7 @@ export const getProductByCategory = async (req, res) => {
     res.json(productsFilter);
   } catch (error) {
     console.error(error);
+    res.json(error)
   }
 };
 
