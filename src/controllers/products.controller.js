@@ -8,11 +8,12 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const { name, description, category, price, image } = req.body;
+  const { name, description, description2, category, price, image } = req.body;
   try {
     const newProduct = new Product({
       name,
       description,
+      description2,
       price,
       category,
       image,
