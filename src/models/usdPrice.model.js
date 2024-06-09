@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const usdPriceSchema = new mongoose.Schema(
   {
     usdPrice: {
-      type: String,
+      type: Number,
     },
   },
   {
