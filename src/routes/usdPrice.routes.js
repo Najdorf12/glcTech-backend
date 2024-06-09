@@ -3,7 +3,7 @@ import {
   getUsdPrice,
   createUsdPrice,
   deleteUsdPrice,
-} from "../controllers/products.controller.js";
+} from "../controllers/usdPrice.controller.js";
 
 const router = Router();
 
