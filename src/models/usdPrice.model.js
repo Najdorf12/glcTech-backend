@@ -1,4 +1,5 @@
-import mongoose from "moongose";
+import mongoose from "mongoose";
+
 const usdPriceSchema = new mongoose.Schema(
   {
     usdPrice: {
