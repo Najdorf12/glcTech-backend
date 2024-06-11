@@ -20,11 +20,11 @@ export const createUsdPrice = async (req, res) => {
 };
 
 export const deleteUsdPrice = async (req, res) => {
-    try {
-      const usdPrice = await UsdPrice.findByIdAndDelete(req.params.id);
-      if (!usdPrice) return res.status(404).json({ message: "Product not found" });
-      res.json(usdPrice);
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
-  };
+  try {
+    const usdPrice = await UsdPrice.findByIdAndDelete(req.params.id);
+    if (!usdPrice) return res.status(404).json({ message: "Price not found" });
+    res.json(usdPrice);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
