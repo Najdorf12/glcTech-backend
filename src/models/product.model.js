@@ -6,6 +6,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    youtube: {
+      type: String,
+      trim: true,
+    },
     description: {
       type: String,
     },
@@ -27,9 +31,7 @@ const productSchema = new mongoose.Schema(
       public_id: String,
       secure_url: String,
     },
-    youtube:{
-      type: String
-    }
+  
   },
   {
     timestamps: true,

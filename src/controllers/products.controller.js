@@ -8,16 +8,17 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const { name, description, description2, category, price, image, youtube } = req.body;
+  const { name,youtube, description, description2, category, price, image } = req.body;
   try {
     const newProduct = new Product({
       name,
+      youtube,
       description,
       description2,
       price,
       category,
       image,
-      youtube
+      
     });
 
     /*    if (req?.files?.image) {
