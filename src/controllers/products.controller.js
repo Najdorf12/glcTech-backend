@@ -59,7 +59,7 @@ export const updateProduct = async (req, res) => {
 export const getProductByCategory = async (req, res) => {
   const category = req.params.categoryName;
   try {
-    const products = await Product.find();
+    const products = await Product.find()
     const productsFilter = products.filter(
       (product) => product.category === category
     );
