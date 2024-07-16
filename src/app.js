@@ -1,8 +1,10 @@
 import express from "express";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
+import authRoutes from "./routes/auth.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import usdPriceRoutes from "./routes/usdPrice.routes.js";
 
@@ -17,6 +19,9 @@ app.use(fileUpload({
     tempFileDir : './uploads'
 }));
 
+app.use(cookieParser()); 
+
+app.use("/api/auth", authRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/usdprice", usdPriceRoutes);
 

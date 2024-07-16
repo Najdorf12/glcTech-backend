@@ -4,7 +4,7 @@ import fs from "fs-extra";
 
 export const getProducts = async (req, res) => {
   const products = await Product.find();
-  res.json(products);
+  res.json(products)
 };
 
 export const createProduct = async (req, res) => {
