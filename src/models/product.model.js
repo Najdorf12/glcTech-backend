@@ -22,14 +22,18 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    camara: {
+      type: String,
+      required: true,
+    },
     procesador: {
-      typer: String,
+      type: String,
     },
     pantalla: {
-      typer: String,
+      type: String,
     },
     bateria: {
-      typer: String,
+      type: String,
     },
     youtube: {
       type: String,

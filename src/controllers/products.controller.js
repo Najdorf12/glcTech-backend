@@ -19,12 +19,15 @@ export const createProduct = async (req, res) => {
     description2,
     category,
     price,
+    camara,
     procesador,
     pantalla,
     bateria,
     youtube,
     image,
   } = req.body;
+  
+  console.log(req.body)
 
   try {
     const newProduct = new Product({
@@ -33,6 +36,7 @@ export const createProduct = async (req, res) => {
       description2,
       category,
       price,
+      camara,
       procesador,
       pantalla,
       bateria,
