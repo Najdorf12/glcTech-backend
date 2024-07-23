@@ -4,17 +4,15 @@ const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      trim: true,
-    },
-    youtube: {
-      type: String,
-      trim: true,
+      required: true,
     },
     description: {
       type: String,
+      required: true,
     },
     description2: {
       type: String,
+      required: true,
     },
     category: {
       type: String,
@@ -22,16 +20,28 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
+      required: true,
     },
-    date: {
-      type: Date,
-      dafault: Date.now,
+    procesador: {
+      typer: String,
+    },
+    pantalla: {
+      typer: String,
+    },
+    bateria: {
+      typer: String,
+    },
+    youtube: {
+      type: String,
     },
     image: {
       public_id: String,
       secure_url: String,
     },
-  
+    date: {
+      type: Date,
+      dafault: Date.now,
+    },
   },
   {
     timestamps: true,

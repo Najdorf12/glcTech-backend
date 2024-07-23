@@ -3,22 +3,41 @@ import { uploadImage, deleteImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 
 export const getProducts = async (req, res) => {
-  const products = await Product.find();
-  res.json(products)
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const createProduct = async (req, res) => {
-  const { name,youtube, description, description2, category, price, image } = req.body;
+  const {
+    name,
+    description,
+    description2,
+    category,
+    price,
+    procesador,
+    pantalla,
+    bateria,
+    youtube,
+    image,
+  } = req.body;
+
   try {
     const newProduct = new Product({
       name,
-      youtube,
       description,
       description2,
-      price,
       category,
+      price,
+      procesador,
+      pantalla,
+      bateria,
+      youtube,
       image,
-      
     });
 
     /*    if (req?.files?.image) {
@@ -49,17 +68,22 @@ export const deleteProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  if (!product) return res.status(404).json({ message: "Product not found" });
-  res.json(product);
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const getProductByCategory = async (req, res) => {
   const category = req.params.categoryName;
   try {
-    const products = await Product.find()
+    const products = await Product.find();
     const productsFilter = products.filter(
       (product) => product.category === category
     );

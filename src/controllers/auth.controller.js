@@ -2,9 +2,7 @@ import User from "../models/user.model.js";
 import bycrypt from "bcryptjs";
 import { createAccessToken } from "../libs/jwt.js";
 import jwt from "jsonwebtoken";
-import 'dotenv/config.js'
-
-
+import "dotenv/config.js";
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -14,7 +12,7 @@ export const register = async (req, res) => {
     if (userFound) return res.status(400).json(["The email already exist"]);
 
     const passwordHash = await bycrypt.hash(password, 10);
-  
+
     const newUser = new User({
       username,
       email,
@@ -36,7 +34,7 @@ export const register = async (req, res) => {
   }
 };
 
- export const login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
   const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
   try {
@@ -48,7 +46,11 @@ export const register = async (req, res) => {
     if (!isMatch) return res.status(400).json(["Invalid credentials."]);
 
     const token = await createAccessToken({ id: userFound._id });
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      sameSite: "none",
+      secure: true,
+      httpOnly: false,
+    });
 
     res.json({
       id: userFound._id,
@@ -67,25 +69,30 @@ export const logout = (req, res) => {
     expires: new Date(0),
   });
   return res.sendStatus(200);
-}; 
- export const verifyToken = async (req, res) => {
+};
+export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
+  console.log(req.cookies);
   const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
-  
-  jwt.verify(token, TOKEN_SECRET, async (error, user) => {
-    if (error) return res.status(401).json({ message: "Unauthorized" });
-    const userFound = await User.findById(user.id);
-    if (!userFound) return res.status(401).json({ message: "Unauthorized" });
-    
-    return res.json({
-      id: userFound.id,
-      username: userFound.username,
-      email: userFound.email,
-    });
-  });
-}; 
+  try {
+    jwt.verify(token, TOKEN_SECRET, async (error, user) => {
+      if (error) return res.status(401).json({ message: "Unauthorized" });
+      const userFound = await User.findById(user.id);
+      if (!userFound) return res.status(401).json({ message: "Unauthorized" });
 
- export const profile = async (req, res) => {
+      return res.json({
+        id: userFound.id,
+        username: userFound.username,
+        email: userFound.email,
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: "User not found" });
 
@@ -94,4 +101,4 @@ export const logout = (req, res) => {
     username: userFound.username,
     email: userFound.email,
   });
-}; 
+};
