@@ -26,8 +26,8 @@ export const createProduct = async (req, res) => {
     youtube,
     image,
   } = req.body;
-  
-  console.log(req.body)
+
+  console.log(req.body);
 
   try {
     const newProduct = new Product({
@@ -67,7 +67,7 @@ export const deleteProduct = async (req, res) => {
     await deleteImage(product?.image?.public_id);
     res.json(product);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

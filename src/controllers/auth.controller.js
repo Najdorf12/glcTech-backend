@@ -72,7 +72,6 @@ export const logout = (req, res) => {
 };
 export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
-  console.log(req.cookies);
   const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
   try {
     jwt.verify(token, TOKEN_SECRET, async (error, user) => {
