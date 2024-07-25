@@ -27,8 +27,6 @@ export const createProduct = async (req, res) => {
     image,
   } = req.body;
 
-  console.log(req.body);
-
   try {
     const newProduct = new Product({
       name,
@@ -57,12 +55,13 @@ export const createProduct = async (req, res) => {
     res.json(savedProduct);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const deleteProduct = async (req, res) => {
+  const product = await Product.findByIdAndDelete(req.params.id);
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
     await deleteImage(product?.image?.public_id);
     res.json(product);
