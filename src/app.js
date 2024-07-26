@@ -10,7 +10,7 @@ import usdPriceRoutes from "./routes/usdPrice.routes.js";
 
 const app = express();
 app.use(cors({/*  http://localhost:5173 https://www.grupolacomunidad.com.ar*/
-    origin:"*",
+    origin:"https://www.grupolacomunidad.com.ar",
     credentials: true,
   
 }));
