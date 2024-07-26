@@ -9,8 +9,8 @@ import productsRoutes from "./routes/products.routes.js";
 import usdPriceRoutes from "./routes/usdPrice.routes.js";
 
 const app = express();
-app.use(cors({/* https://www.grupolacomunidad.com.ar http://localhost:5173 */
-    origin:"https://www.grupolacomunidad.com.ar",
+app.use(cors({/*  http://localhost:5173 https://www.grupolacomunidad.com.ar*/
+    origin:"*",
     credentials: true,
   
 }));
