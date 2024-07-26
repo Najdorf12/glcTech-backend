@@ -50,7 +50,6 @@ export const login = async (req, res) => {
       sameSite: "none",
       secure: true,
       httpOnly: false,
-      
     });
 
     res.json({
