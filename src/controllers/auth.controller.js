@@ -36,7 +36,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
+/*   const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`; */
   try {
     const userFound = await User.findOne({ email });
     if (!userFound) return res.status(400).json(["Invalid credentials"]);
@@ -49,7 +49,8 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       sameSite: "none",
       secure: true,
-      httpOnly: false,
+      httpOnly: true,
+      
     });
 
     res.json({
