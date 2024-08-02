@@ -12,7 +12,6 @@ const app = express();
 app.use(cors({/*  http://localhost:5173  https://www.grupolacomunidad.com.ar*/
     origin:"https://www.grupolacomunidad.com.ar",
     credentials: true,
-  
 }));
 
 app.use(morgan("dev"));

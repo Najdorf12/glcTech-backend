@@ -25,6 +25,7 @@ export const createProduct = async (req, res) => {
     bateria,
     youtube,
     image,
+    images,
   } = req.body;
 
   try {
@@ -40,6 +41,7 @@ export const createProduct = async (req, res) => {
       bateria,
       youtube,
       image,
+      images,
     });
 
     /*    if (req?.files?.image) {
@@ -63,7 +65,9 @@ export const deleteProduct = async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   try {
     if (!product) return res.status(404).json({ message: "Product not found" });
-    await deleteImage(product?.image?.public_id);
+    if (product?.image?.public_id) {
+      await deleteImage(product?.image?.public_id);
+    }
     res.json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
