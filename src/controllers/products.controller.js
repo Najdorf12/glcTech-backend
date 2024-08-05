@@ -98,10 +98,10 @@ export const deleteProduct = async (req, res) => {
     if (product.images && product.images.length > 0) {
       for (const img of product.images) {
         try {
-          await deleteImage(img); // Delete each image one by one
-          console.log(`Deleted image with id: ${img}`);
+          await deleteImage(img.public_id); // Delete each image one by one
+          console.log(`Deleted image with id: ${img.public_id}`);
         } catch (error) {
-          console.error(`Failed to delete image ${img}: ${error.message}`);
+          console.error(`Failed to delete image ${img.public_id}: ${error.message}`);
         }
       }
     }
