@@ -61,15 +61,53 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const deleteProduct = async (req, res) => {
+/* export const deleteProduct = async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   try {
     if (!product) return res.status(404).json({ message: "Product not found" });
     if (product?.image?.public_id) {
       await deleteImage(product?.image?.public_id);
     }
+    if (product.images && product.images.length > 0) {
+      for (const img of product.images) {
+        await deleteImage(img); // Elimina cada imagen una por una
+      }
+    }
     res.json(product);
   } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}; */
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.image?.public_id) {
+      try {
+        await deleteImage(product.image.public_id);
+        console.log(`Deleted main image with id: ${product.image.public_id}`);
+      } catch (error) {
+        console.error(`Failed to delete main image: ${error.message}`);
+      }
+    }
+
+    if (product.images && product.images.length > 0) {
+      for (const img of product.images) {
+        try {
+          await deleteImage(img); // Delete each image one by one
+          console.log(`Deleted image with id: ${img}`);
+        } catch (error) {
+          console.error(`Failed to delete image ${img}: ${error.message}`);
+        }
+      }
+    }
+    res.json(product);
+  } catch (error) {
+    console.error(`Error in deleteProduct: ${error.message}`);
     res.status(500).json({ message: error.message });
   }
 };

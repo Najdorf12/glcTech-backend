@@ -42,9 +42,10 @@ const productSchema = new mongoose.Schema(
       public_id: String,
       secure_url: String,
     },
-    images: {
-      type: [String],
-    },
+    images: [{
+      public_id: { type: String},
+      secure_url: { type: String},
+    }],
     date: {
       type: Date,
       dafault: Date.now,
