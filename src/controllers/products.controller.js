@@ -24,7 +24,7 @@ export const createProduct = async (req, res) => {
     pantalla,
     bateria,
     youtube,
-    youtubeShort,
+    youtubeShort, 
     image,
     images,
   } = req.body;
