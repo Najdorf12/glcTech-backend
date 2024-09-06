@@ -43,7 +43,7 @@ export const createProduct = async (req, res) => {
       youtube,
       youtubeShort,
       image,
-      images,
+      images
     });
 
     /*    if (req?.files?.image) {
