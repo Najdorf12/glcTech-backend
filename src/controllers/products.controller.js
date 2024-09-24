@@ -25,6 +25,7 @@ export const createProduct = async (req, res) => {
     bateria,
     youtube,
     youtubeShort, 
+    gama,
     image,
     images,
   } = req.body;
@@ -42,6 +43,7 @@ export const createProduct = async (req, res) => {
       bateria,
       youtube,
       youtubeShort,
+      gama,
       image,
       images
     });
@@ -63,23 +65,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-/* export const deleteProduct = async (req, res) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
-  try {
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    if (product?.image?.public_id) {
-      await deleteImage(product?.image?.public_id);
-    }
-    if (product.images && product.images.length > 0) {
-      for (const img of product.images) {
-        await deleteImage(img); // Elimina cada imagen una por una
-      }
-    }
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-}; */
+
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
@@ -100,7 +86,7 @@ export const deleteProduct = async (req, res) => {
     if (product.images && product.images.length > 0) {
       for (const img of product.images) {
         try {
-          await deleteImage(img.public_id); // Delete each image one by one
+          await deleteImage(img.public_id); 
           console.log(`Deleted image with id: ${img.public_id}`);
         } catch (error) {
           console.error(`Failed to delete image ${img.public_id}: ${error.message}`);

@@ -39,16 +39,21 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
     youtubeShort: {
-      type: String
+      type: String,
+    },
+    gama: {
+      type: String,
     },
     image: {
       public_id: String,
       secure_url: String,
     },
-    images: [{
-      public_id: { type: String},
-      secure_url: { type: String},
-    }],
+    images: [
+      {
+        public_id: { type: String },
+        secure_url: { type: String },
+      },
+    ],
     date: {
       type: Date,
       dafault: Date.now,
