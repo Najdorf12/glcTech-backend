@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 
 import authRoutes from "./routes/auth.routes.js";
 import productsRoutes from "./routes/products.routes.js";
+import dinamicImagesRoutes from "./routes/dinamicImages.routes.js";
 import usdPriceRoutes from "./routes/usdPrice.routes.js";
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productsRoutes);
+app.use("/api/dinamicImages", dinamicImagesRoutes);
 app.use("/api/usdprice", usdPriceRoutes);
 
 
