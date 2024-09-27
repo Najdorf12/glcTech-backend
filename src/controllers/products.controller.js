@@ -24,7 +24,7 @@ export const createProduct = async (req, res) => {
     pantalla,
     bateria,
     youtube,
-    youtubeShort, 
+    youtubeShort,
     gama,
     image,
     images,
@@ -45,7 +45,7 @@ export const createProduct = async (req, res) => {
       youtubeShort,
       gama,
       image,
-      images
+      images,
     });
 
     /*    if (req?.files?.image) {
@@ -64,7 +64,6 @@ export const createProduct = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const deleteProduct = async (req, res) => {
   try {
@@ -86,10 +85,12 @@ export const deleteProduct = async (req, res) => {
     if (product.images && product.images.length > 0) {
       for (const img of product.images) {
         try {
-          await deleteImage(img.public_id); 
+          await deleteImage(img.public_id);
           console.log(`Deleted image with id: ${img.public_id}`);
         } catch (error) {
-          console.error(`Failed to delete image ${img.public_id}: ${error.message}`);
+          console.error(
+            `Failed to delete image ${img.public_id}: ${error.message}`
+          );
         }
       }
     }
@@ -116,16 +117,30 @@ export const updateProduct = async (req, res) => {
 export const getProductByCategory = async (req, res) => {
   const category = req.params.categoryName;
   try {
-    const products = await Product.find();
-    const productsFilter = products.filter(
-      (product) => product.category === category
-    );
-    if (!productsFilter)
+    // Filtra los productos por categoría
+    const products = await Product.find({ category });
+
+    if (!products || products.length === 0) {
       return res.status(404).json({ message: "Product not found" });
-    res.json(productsFilter);
+    }
+
+    // Ordena los productos por gama de mayor a menor, y los undefined al final
+    const sortedProducts = products.sort((a, b) => {
+      // Si ambos productos tienen un valor en gama
+      if (a.gama !== undefined && b.gama !== undefined) {
+        return a.gama - b.gama; // Mayor a menor
+      }
+      // Si solo a es undefined, moverlo hacia el final
+      if (a.gama === undefined) return 1;
+      // Si solo b es undefined, moverlo hacia el final
+      if (b.gama === undefined) return -1;
+      return 0;
+    });
+
+    res.json(sortedProducts);
   } catch (error) {
     console.error(error);
-    res.json(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

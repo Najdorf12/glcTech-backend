@@ -42,7 +42,7 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
     gama: {
-      type: String,
+      type: Number,
     },
     image: {
       public_id: String,
