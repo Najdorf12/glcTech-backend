@@ -123,21 +123,7 @@ export const getProductByCategory = async (req, res) => {
     if (!products || products.length === 0) {
       return res.status(404).json({ message: "Product not found" });
     }
-
-    // Ordena los productos por gama de mayor a menor, y los undefined al final
-    const sortedProducts = products.sort((a, b) => {
-      // Si ambos productos tienen un valor en gama
-      if (a.gama !== undefined && b.gama !== undefined) {
-        return a.gama - b.gama; // Mayor a menor
-      }
-      // Si solo a es undefined, moverlo hacia el final
-      if (a.gama === undefined) return 1;
-      // Si solo b es undefined, moverlo hacia el final
-      if (b.gama === undefined) return -1;
-      return 0;
-    });
-
-    res.json(sortedProducts);
+    res.json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
